@@ -19,20 +19,33 @@ const handleAddTodo = ()=>{
     updatedTodo.push(newTodoItem);
     setTodos(updatedTodo);
     localStorage.setItem('todolist',JSON.stringify(updatedTodo));
+    setNewTitle("");
+    setNewDesc("");
 };
 
 useEffect(()=>{
     let savedTodo = JSON.parse(localStorage.getItem('todolist'));
+    let savedCompletedTodo = JSON.parse(localStorage.getItem('completedTodos'));
     if(savedTodo){
         setTodos(savedTodo);
+    }
+    if(savedCompletedTodo){
+        setCompletedTodoArr(savedCompletedTodo);
     }
 },[]);
 
 const deleteTodo = (index)=>{
     let reducedTodo = [...allTodos];
-    reducedTodo.splice(index);
+    reducedTodo.splice(index,1);
     localStorage.setItem('todolist',JSON.stringify(reducedTodo));
     setTodos(reducedTodo);
+}
+
+const deleteCompletedTodo = (index)=>{
+    let reducedCompletedTodo = [...completedTodoArr];
+    reducedCompletedTodo.splice(index,1);
+    localStorage.setItem('completedTodos',JSON.stringify(reducedCompletedTodo));
+    setCompletedTodoArr(reducedCompletedTodo);
 }
 
 const completedTod = (index)=>{
@@ -53,13 +66,14 @@ const completedTod = (index)=>{
     let completedUpdatedArr = [...completedTodoArr];
     completedUpdatedArr.push(filteredItem);
     setCompletedTodoArr(completedUpdatedArr);
+    localStorage.setItem('completedTodos',JSON.stringify(completedUpdatedArr));
     deleteTodo(index);
 }
     return(
         <div className="main-box">
           <h1 className="title">To Do List</h1>
           <div className="second-box">
-            <div className="sub-main">
+            <div className={`sub-main ${isComplete === true && 'visible'}`}>
             <input type="text" value={newTitle} onChange={(e)=>setNewTitle(e.target.value)} placeholder="Task..." className="input" />
             <input type="text" value={newDesc} onChange={(e)=>setNewDesc(e.target.value)} placeholder="Desc..." className="input" />
             <button type="button" onClick={handleAddTodo} className="news-btn">Add</button>
@@ -98,7 +112,7 @@ const completedTod = (index)=>{
                         <p>Completed on : {item.completeddeOn}</p>
                         </div>
                         <div className='btn-icon'>
-                        <MdAutoDelete className='dlt-icon' onClick={()=>deleteTodo(index)} />
+                        <MdAutoDelete className='dlt-icon' onClick={()=>deleteCompletedTodo(index)} />
                         </div>
                         </div>
                     )
