@@ -56,7 +56,7 @@ const completedTod = (index)=>{
     let hh = nots.getHours();
     let m = nots.getMinutes();
     let s = nots.getSeconds();
-    let comple = dd+ '-' +mm+ '-' +years+ 'at' + hh+ ':' +m+ ':' +s; 
+    let comple = dd+ '-' +mm+ '-' +years+ ' at ' + hh+ ':' +m+ ':' +s; 
 
     let filteredItem = {
         ...allTodos[index],
@@ -73,9 +73,11 @@ const completedTod = (index)=>{
         <div className="main-box">
           <h1 className="title">To Do List</h1>
           <div className="second-box">
-            <div className={`sub-main ${isComplete === true && 'visible'}`}>
-            <input type="text" value={newTitle} onChange={(e)=>setNewTitle(e.target.value)} placeholder="Task..." className="input" />
-            <input type="text" value={newDesc} onChange={(e)=>setNewDesc(e.target.value)} placeholder="Desc..." className="input" />
+            <div className={`input-boxes ${isComplete === true && 'visible'}`}>
+            <div className="sub-main">
+            <input type="text" value={newTitle} onChange={(e)=>setNewTitle(e.target.value)} placeholder="Add a task" className="input" />
+            <input type="text" value={newDesc} onChange={(e)=>setNewDesc(e.target.value)} placeholder="Add description" className="input" />
+            </div>
             <button type="button" onClick={handleAddTodo} className="news-btn">Add</button>
             </div>
             <div className="sub-one">
@@ -93,8 +95,8 @@ const completedTod = (index)=>{
                         <p>{item.description}</p>
                         </div>
                         <div className='btn-icon'>
-                        <MdAutoDelete className='dlt-icon' onClick={()=>deleteTodo(index)} />
-                        <FaCheck className='chk-icon' onClick={()=>completedTod(index)} />
+                        <MdAutoDelete className='dlt-icon' onClick={()=>deleteTodo(index)} title='Delete todo' />
+                        <FaCheck className='chk-icon' onClick={()=>completedTod(index)} title='Mark as complete' />
                         </div>
                         </div>
                     )
@@ -112,7 +114,7 @@ const completedTod = (index)=>{
                         <p>Completed on : {item.completeddeOn}</p>
                         </div>
                         <div className='btn-icon'>
-                        <MdAutoDelete className='dlt-icon' onClick={()=>deleteCompletedTodo(index)} />
+                        <MdAutoDelete className='dlt-icon' onClick={()=>deleteCompletedTodo(index)} title='Delete todo' />
                         </div>
                         </div>
                     )
