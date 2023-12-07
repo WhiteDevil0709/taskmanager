@@ -8,6 +8,10 @@
     flex-direction: column;
 }
 
+.title a{
+    text-decoration: none;
+}
+
 .input-box{
     height: 30px;
     width: 300px;
