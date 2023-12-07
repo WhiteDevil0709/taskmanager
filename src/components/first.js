@@ -71,7 +71,7 @@ const completedTod = (index)=>{
 }
     return(
         <div className="main-box">
-          <h1 className="title"><a href="/">To Do List</a></h1>
+          <h1 className="title">To Do List</h1>
           <div className="second-box">
             <div className={`input-boxes ${isComplete === true && 'visible'}`}>
             <div className="sub-main">
